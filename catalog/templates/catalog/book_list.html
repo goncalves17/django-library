@@ -8,12 +8,14 @@
         <thead class="table-primary">
             <tr>
                 <th>Título</th>
+                <th>Cópias</th>
                 <th class="d-flex justify-content-center">Ações</th>
             </tr>
         </thead>
         {% for book in book_list %}
             <tr>
                 <td>{{ book.title }} ({{ book.author }})</td>
+                <td>{{ book.bookinstance_set.count }}</td>
                 <td class="d-flex justify-content-center">
                     <a type="button" class="btn btn-info btn-sm mx-1" href="{{ book.get_absolute_url }}">Details</a>
                     {% if perms.catalog.can_mark_returned %}

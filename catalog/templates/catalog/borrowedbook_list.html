@@ -3,17 +3,43 @@
 {% block content %}
     <h1>All Borrowed Books</h1>
     {% if bookinstance_list %}
-    <ul>
+    <table class="table table-striped table-sm">
+        <thead class="table-primary">
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Usuário</th>
+                <th>Data devolução</th>
+                <th>Status</th>
+                <th class="d-flex justify-content-center">Ações</th>
+            </tr>
+        </thead>
         {% for book_instance in bookinstance_list %}
             {% if book_instance.status == 'o' %}
-            <li class="{% if book_instance.is_overdue %} text-danger {% endif %}">
-                <a href="{{ book_instance.book.get_absolute_url }}">{{ book_instance.book.title }}</a> 
-                ({{ book_instance.due_back }}) - {{ book_instance.borrower.username }}
-                <a href="{% url 'renew-book-librarian' book_instance.id %}">Renew</a>
-            </li>
+            <tr>
+                <td>{{ book_instance.book.title }}</td>
+                <td>{{ book_instance.book.author }}</td>
+                <td>{{ book_instance.borrower.username }}</td>
+                <td>{{ book_instance.due_back }}</td>
+                    {% if book_instance.is_overdue %}
+                        <td class="text-danger">{{ 'Atrasado' }}</td>
+                    {% else %}
+                        <td>{{ 'OK' }}</td>
+                    {% endif %}
+                <td>
+                    <a type="button"
+                       class="btn btn-success btn-sm mx-1"
+                       href="{% url 'renew-book-librarian' book_instance.id %}">
+                        Renew
+                    </a>
+                    <a type="button"
+                       class="btn btn-info btn-sm mx-1"
+                       href="{{ book_instance.book.get_absolute_url }}">Info</a>
+                </td>
+            </tr>
             {% endif %}
         {% endfor %}
-    </ul>
+    </table>
     {% else %}
         <p>There are no borrowed books.</p>
     {% endif %}

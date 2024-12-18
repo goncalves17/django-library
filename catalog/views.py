@@ -15,6 +15,7 @@ from django.forms.widgets import DateInput
 from catalog.forms import RenewBookForm, RenewBookModelForm
 from catalog.models import Author
 
+
 def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
@@ -39,6 +40,7 @@ def index(request):
     }
 
     return render(request, 'index.html', context=context)
+
 
 class BookListView(generic.ListView):
     model = Book
@@ -73,7 +75,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 class BorrowedBooksListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'catalog.can_mark_returned'
-    template_name='catalog/borrowedbook_list.html'
+    template_name = 'catalog/borrowedbook_list.html'
     model = BookInstance
 
 
@@ -102,6 +104,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 # poderia chamar RenewBookModelForm definida, precisaria mudar o campo para due_date que é o nome na model
+
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
