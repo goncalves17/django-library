@@ -7,3 +7,15 @@
 .custom-width{
   max-width: 80%;
 }
+
+.width-50{
+  max-width: 50%
+}
+
+.center{
+  margin: auto;
+}
+
+.text-center{
+  text-align: center
+}
