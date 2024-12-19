@@ -35,11 +35,12 @@
 
                 <hr>
                 {% if perms.catalog.can_mark_returned %}
-                Staff
-                <li><a href="{% url 'all-borrowed-books' %}">All Borrowed</a></li>
-                <li><a href="{% url 'author-create' %}">Create Author</a></li>
-                <li><a href="{% url 'book-create' %}">Create Book</a></li>
+                Funcionários
+                <li><a href="{% url 'all-borrowed-books' %}">Empréstimos</a></li>
+                <li><a href="{% url 'author-create' %}">Cadastrar Autor</a></li>
+                <li><a href="{% url 'book-create' %}">Cadastrar Livro</a></li>
                 <li><a href="{% url 'book-instance-create' %}">Create Book Instance</a></li>
+                <li><a href="{% url 'users' %}">Lista de Usuários</a></li>
                 {% endif %}
 
             </ul>
