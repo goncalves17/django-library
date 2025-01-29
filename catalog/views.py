@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django import forms
 from django.forms.widgets import DateInput
+from django.http import JsonResponse
 
 from catalog.forms import RenewBookForm, RenewBookModelForm
 from catalog.models import Author
@@ -63,7 +64,7 @@ class AuthorDetailView(generic.DetailView):
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name='catalog/bookinstance_list_borrowed_user.html'
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
 
     def get_queryset(self):
@@ -171,3 +172,11 @@ class UserListView(PermissionRequiredMixin, generic.ListView):
     template_name = 'catalog/user_list.html'
 
     permission_required = 'catalog.can_mark_returned'
+
+
+def get_users(request):
+    users = list(User.objects.values('username', 'first_name', 'is_superuser', 'is_staff', 'last_login', 'date_joined'))
+
+    return JsonResponse({
+        'data': users
+    })

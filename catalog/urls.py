@@ -18,4 +18,5 @@ urlpatterns = [
     path('book/<int:pk>/delete', views.BookDelete.as_view(), name='book-delete'),
     path('book-instance/create/', views.BookInstanceCreate.as_view(), name='book-instance-create'),
     path('users/', views.UserListView.as_view(), name='users'),
+    path('users/json', views.get_users, name='users-json')
 ]
